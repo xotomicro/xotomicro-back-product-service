@@ -21,7 +21,7 @@ spring:
     port: 6379
     database: 0
     timeout: 60000
-    defalt-ttl-in-mins: 5
+    default-ttl-in-mins: 5
   datasource:
     url: jdbc:postgresql://localhost:5432/boilerplate
     driverClassName: org.postgresql.Driver

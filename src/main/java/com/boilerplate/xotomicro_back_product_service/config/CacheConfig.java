@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 
 @Configuration
 public class CacheConfig {
-    @Value("${spring.redis.defalt-ttl-in-mins}")
+    @Value("${spring.redis.default-ttl-in-mins}")
     private int ttlInMins;
 
     @Bean
