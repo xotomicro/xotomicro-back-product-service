@@ -9,7 +9,7 @@ eureka:
     preferIpAddress: true
 
 kafka:
-  bootstrapServer: kafka:9092
+  bootstrapServer: kafka-headless:9092
   topics:
     product: product
 
@@ -17,13 +17,13 @@ spring:
   application:
     name: xotomicro-back-product-service
   redis:
-    host: product-redis
+    host: product-redis-master
     port: 6379
     database: 0
     timeout: 60000
     defalt-ttl-in-mins: 5
   datasource:
-    url: jdbc:postgresql://product-db:5432/boilerplate
+    url: jdbc:postgresql://product-db-postgresql:5432/boilerplate
     driverClassName: org.postgresql.Driver
     username: postgres
     password: admin
@@ -33,4 +33,4 @@ spring:
 flyway:
   user: postgres
   password: admin
-  url: jdbc:postgresql://product-db:5432/boilerplate
+  url: jdbc:postgresql://product-db-postgresql:5432/boilerplate
