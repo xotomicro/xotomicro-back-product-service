@@ -4,7 +4,7 @@ services:
     ##    BACKEND    ##
     ###################
 
-    product-redis:
+    product-redis-master:
         image: docker.io/bitnami/redis:6.2
         container_name: product-redis
         environment:
@@ -16,7 +16,7 @@ services:
             timeout: 1s
             retries: 10
 
-    product-db:
+    product-db-postgresql:
         image: 'postgres'
         container_name: product-db
         environment:
