@@ -1,0 +1,50 @@
+version: '2.1'
+services:
+    ###################
+    ##    BACKEND    ##
+    ###################
+
+    product-redis-master:
+        image: docker.io/bitnami/redis:6.2
+        container_name: product-redis
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+            - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+        healthcheck:
+            test: ['CMD-SHELL', 'redis-cli', 'ping']
+            interval: 10s
+            timeout: 1s
+            retries: 10
+
+    product-db-postgresql:
+        image: 'postgres'
+        container_name: product-db
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=admin
+            - POSTGRES_DB=boilerplate
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U postgres']
+            interval: 10s
+            timeout: 1s
+            retries: 10
+
+    xotomicro-back-product-service:
+        build:
+            context: .
+            dockerfile: docker/dockerfile.production
+        container_name: xotomicro-back-product-service
+        image: xotomicro-back-product-service
+        environment:
+            - SECRET_KEY=${SECRET_KEY}
+            - JVM_OPTS=-Xmx512m -Xms512m
+            - PROFILE=${PROFILE}
+            - ENV=${ENV}
+
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost:8083/actuator/health']
+            interval: 10s
+            timeout: 1s
+            retries: 10
+        env_file:
+            - .env
